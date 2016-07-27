@@ -11,6 +11,8 @@ typedef struct {
 	uint8_t		virtualStack[TASK_STACK_SIZE];
 } Tcb;
 
+void initTcb(void); 
+
 extern Tcb task1Tcb;
 extern Tcb task2Tcb;
 

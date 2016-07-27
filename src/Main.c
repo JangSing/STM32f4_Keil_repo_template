@@ -7,8 +7,11 @@
 #include <stdint.h>
 #include "stm32f4xx.h"
 #include "AssemblyModule.h"
+#include "SaveRegister.h"
+#include "TCB.h"
 
 extern int fourBytes;						// Import from AssemblyModule.s
+uint32_t virtualSp;
 extern uint16_t twoBytes;				// Import from AssemblyModule.s
 
 uint32_t variableInC = 0xdeaf;
@@ -22,7 +25,13 @@ void waitForever(void) {
 
 int main() {
 	fourBytes = 0xdeadbeef;
-	noArgFunc();
+	
+	initTcb();
+	virtualSp = task1Tcb.sp;
+	
+	
+	saveRegs();
+	//noArgFunc();
 
 	initSysTick();
   waitForever();
